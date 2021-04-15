@@ -2,7 +2,7 @@ FROM alpine:3.13 as builder
 
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories
 RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >>/etc/apk/repositories
-RUN apk add --update --no-cache build-base linux-headers git cmake bash zlib zlib-dev bzip2 bzip2-dev snappy snappy-dev lz4 lz4-dev curl zstd@community zstd-dev@community jemalloc jemalloc-dev libtbb-dev@testing libtbb@testing 
+RUN apk add --update --no-cache build-base linux-headers git cmake bash zlib zlib-dev bzip2 bzip2-dev snappy snappy-dev lz4 lz4-dev curl wget zip unzip zstd@community zstd-dev@community  libtbb-dev@testing libtbb@testing 
 
 RUN cd /tmp && \
     git clone https://github.com/gflags/gflags.git && \
