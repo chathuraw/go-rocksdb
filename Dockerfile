@@ -2,7 +2,8 @@ FROM alpine:3.13 as builder
 
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories
 RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >>/etc/apk/repositories
-RUN apk add --update --no-cache build-base linux-headers git cmake bash zlib zlib-dev bzip2 bzip2-dev snappy snappy-dev lz4 lz4-dev curl wget zip unzip zstd@community zstd-dev@community  libtbb-dev@testing libtbb@testing 
+RUN apk add --update --no-cache build-base linux-headers git cmake bash perl curl wget mercurial g++ autoconf cmake bash
+RUN apk add --update --no-cache zlib zlib-dev bzip2 bzip2-dev snappy snappy-dev lz4 lz4-dev zstd@testing zstd-dev@testing libtbb-dev@testing libtbb@testing 
 
 RUN cd /tmp && \
     git clone https://github.com/gflags/gflags.git && \
@@ -14,10 +15,11 @@ RUN cd /tmp && \
     cd /tmp && \
     rm -R /tmp/gflags/
 
+# Install Rocksdb
 RUN cd /tmp && \
     git clone https://github.com/facebook/rocksdb.git && \
     cd rocksdb && \
-    git checkout v5.11.3 && \
+    git checkout v6.10.2 && \
     make shared_lib && \
     mkdir -p /usr/local/rocksdb/lib && \
     mkdir /usr/local/rocksdb/include && \
@@ -25,8 +27,7 @@ RUN cd /tmp && \
     cp /usr/local/rocksdb/lib/librocksdb.so* /usr/lib/ && \
     cp -r include /usr/local/rocksdb/ && \
     cp -r include/* /usr/include/ && \
-    cd .. && \
-    rm -rf rocksdb
+    rm -R /tmp/rocksdb/
     
     
 RUN curl -s https://dl.google.com/go/go1.15.11.linux-amd64.tar.gz | tar -C /usr/local -xz
