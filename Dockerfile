@@ -30,6 +30,6 @@ RUN cd /tmp && \
     rm -R /tmp/rocksdb/
     
     
-RUN curl -s https://dl.google.com/go/go1.15.11.linux-amd64.tar.gz | tar -C /usr/local -xz
+RUN curl -s https://dl.google.com/go/go1.12.17.linux-amd64.tar.gz | tar -C /usr/local -xz
 
 RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
